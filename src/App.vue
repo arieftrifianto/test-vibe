@@ -241,7 +241,7 @@ const docsModalOpen = ref(false);
           </div>
           
           <template #footer>
-            <UiButton variant="neutral" class="mr-3">Cancel</UiButton>
+            <UiButton variant="secondary" class="mr-3">Cancel</UiButton>
             <UiButton>Save Changes</UiButton>
           </template>
         </UiCard>
@@ -253,9 +253,6 @@ const docsModalOpen = ref(false);
           <UiButton variant="destructive">Destructive</UiButton>
           <UiButton variant="success">Success</UiButton>
           <UiButton variant="warning">Warning</UiButton>
-          <UiButton variant="danger">Danger</UiButton>
-          <UiButton variant="neutral">Neutral</UiButton>
-          <UiButton variant="ghost">Ghost</UiButton>
           <UiButton disabled>Disabled</UiButton>
         </div>
       </section>
