@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import UiSelect from './UiSelect.vue';
+import UiButton from './UiButton.vue';
 
 const props = defineProps({
   modelValue: {
@@ -67,41 +68,41 @@ const updatePage = (page) => {
     </div>
     
     <div class="flex items-center gap-2">
-      <button
+      <UiButton
         @click="updatePage(modelValue - 1)"
         :disabled="modelValue <= 1"
-        class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-neutral-600 transition-all shadow-clay-btn hover:shadow-clay-btn active:shadow-clay-btn-active disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed"
+        variant="secondary"
+        class="!w-10 !h-10 !p-0 shrink-0"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-      </button>
+      </UiButton>
 
       <div class="flex items-center gap-1">
         <template v-for="(page, index) in pages" :key="index">
-          <button
+          <UiButton
             v-if="page !== '...'"
             @click="updatePage(page)"
-            class="w-10 h-10 flex items-center justify-center rounded-xl transition-all font-medium text-sm"
-            :class="modelValue === page
-              ? 'bg-primary-500 text-white shadow-clay-btn'
-              : 'bg-white text-neutral-600 hover:bg-neutral-50 shadow-clay-btn hover:shadow-clay-btn active:shadow-clay-btn-active'"
+            :variant="modelValue === page ? 'primary' : 'secondary'"
+            class="!w-10 !h-10 !p-0 shrink-0 tabular-nums"
           >
             {{ page }}
-          </button>
+          </UiButton>
           <span v-else class="w-10 text-center text-neutral-400">...</span>
         </template>
       </div>
 
-      <button
+      <UiButton
         @click="updatePage(modelValue + 1)"
         :disabled="modelValue >= totalPages"
-        class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-neutral-600 transition-all shadow-clay-btn hover:shadow-clay-btn active:shadow-clay-btn-active disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed"
+        variant="secondary"
+        class="!w-10 !h-10 !p-0 shrink-0"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
-      </button>
+      </UiButton>
     </div>
   </nav>
 </template>

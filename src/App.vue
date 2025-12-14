@@ -246,19 +246,17 @@ const docsModalOpen = ref(false);
           </template>
         </UiCard>
 
-        <div class="flex flex-wrap gap-4">
-           <UiButton>Primary</UiButton>
-           <UiButton variant="secondary">Secondary</UiButton>
-           <UiButton variant="success">Success</UiButton>
-           <UiButton variant="warning">Warning</UiButton>
-           <UiButton variant="danger">Danger</UiButton>
-           <UiButton variant="neutral">Neutral</UiButton>
-           <UiButton variant="success">Success</UiButton>
-           <UiButton variant="warning">Warning</UiButton>
-           <UiButton variant="danger">Danger</UiButton>
-           <UiButton variant="neutral">Neutral</UiButton>
-           <UiButton variant="ghost">Ghost</UiButton>
-           <UiButton disabled>Disabled</UiButton>
+        <div class="flex flex-wrap gap-2">
+          <UiButton>Primary</UiButton>
+          <UiButton variant="secondary">Secondary</UiButton>
+          <UiButton variant="tertiary">Tertiary</UiButton>
+          <UiButton variant="destructive">Destructive</UiButton>
+          <UiButton variant="success">Success</UiButton>
+          <UiButton variant="warning">Warning</UiButton>
+          <UiButton variant="danger">Danger</UiButton>
+          <UiButton variant="neutral">Neutral</UiButton>
+          <UiButton variant="ghost">Ghost</UiButton>
+          <UiButton disabled>Disabled</UiButton>
         </div>
       </section>
 
@@ -366,16 +364,15 @@ const docsModalOpen = ref(false);
                     <div class="flex flex-wrap gap-2">
                         <UiButton>Primary</UiButton>
                         <UiButton variant="secondary">Secondary</UiButton>
+                        <UiButton variant="tertiary">Tertiary</UiButton>
+                        <UiButton variant="destructive">Destructive</UiButton>
                         <UiButton variant="success">Success</UiButton>
                         <UiButton variant="warning">Warning</UiButton>
-                        <UiButton variant="danger">Danger</UiButton>
-                        <UiButton variant="neutral">Neutral</UiButton>
-                        <UiButton variant="ghost">Ghost</UiButton>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <UiButton disabled>Disabled Primary</UiButton>
                         <UiButton variant="secondary" disabled>Disabled Secondary</UiButton>
-                        <UiButton variant="ghost" disabled>Disabled Ghost</UiButton>
+                        <UiButton variant="tertiary" disabled>Disabled Tertiary</UiButton>
                     </div>
                   </div>
                 </template>
@@ -524,7 +521,7 @@ const docsModalOpen = ref(false);
                        This is a modal triggered from the documentation preview. It demonstrates the overlay and content containment.
                      </p>
                      <template #footer>
-                       <UiButton variant="neutral" @click="docsModalOpen = false">Close</UiButton>
+                       <UiButton variant="secondary" @click="docsModalOpen = false">Close</UiButton>
                        <UiButton @click="docsModalOpen = false">Confirm</UiButton>
                      </template>
                    </UiModal>
@@ -552,7 +549,7 @@ const docsModalOpen = ref(false);
         <strong>Note:</strong> This action cannot be undone.
       </div>
       <template #footer>
-        <UiButton variant="neutral" @click="isModalOpen = false">Cancel</UiButton>
+        <UiButton variant="secondary" @click="isModalOpen = false">Cancel</UiButton>
         <UiButton variant="primary" @click="isModalOpen = false">Confirm</UiButton>
       </template>
     </UiModal>

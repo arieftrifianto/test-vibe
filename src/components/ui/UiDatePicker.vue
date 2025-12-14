@@ -44,10 +44,11 @@ onUnmounted(() => document.removeEventListener('click', close));
     <label v-if="label" class="block text-sm font-medium text-neutral-700 mb-1.5 ml-1" :class="{ 'opacity-60': disabled }">{{ label }}</label>
     <div 
       @click="toggle"
-      class="w-full rounded-xl px-4 py-2.5 text-left text-neutral-900 outline-none transition-all duration-200 flex justify-between items-center shadow-clay-input bg-neutral-50 hover:bg-white cursor-pointer"
+      class="w-full rounded-xl px-4 py-2.5 text-left text-neutral-900 outline-none transition-all duration-200 flex justify-between items-center shadow-clay-input bg-neutral-50"
       :class="[
-        { 'ring-2 ring-primary-500/20 bg-white': isOpen },
-        { 'opacity-60 cursor-not-allowed hover:bg-neutral-50': disabled }
+        { 'ring-2 ring-primary-500/20 bg-white shadow-soft-sm': isOpen },
+        { 'opacity-60 cursor-not-allowed': disabled },
+        { 'hover:bg-white cursor-pointer': !disabled }
       ]"
     >
       <span :class="{ 'text-neutral-400': !modelValue }">{{ formattedDate || placeholder }}</span>

@@ -50,7 +50,7 @@ onUnmounted(() => document.removeEventListener('click', close));
       @click="toggle"
       class="w-full rounded-xl px-4 py-2.5 text-left text-neutral-900 outline-none transition-all duration-200 flex justify-between items-center shadow-clay-input"
       :class="[
-        isOpen ? 'bg-white ring-2 ring-primary-500/20' : 'bg-neutral-50 hover:bg-white',
+        isOpen ? 'bg-white ring-2 ring-primary-500/20 shadow-soft-sm' : 'bg-neutral-50 enabled:hover:bg-white',
         disabled ? 'opacity-60 cursor-not-allowed' : ''
       ]"
       :disabled="disabled"

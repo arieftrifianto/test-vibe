@@ -19,7 +19,7 @@ defineProps({
         <a 
           v-if="item.href" 
           :href="item.href" 
-          class="inline-flex items-center text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors px-3 py-1.5 rounded-lg hover:bg-white hover:shadow-clay-btn"
+          class="inline-flex items-center text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors px-3 py-1.5 rounded-xl hover:bg-white hover:shadow-clay-btn"
         >
           {{ item.label }}
         </a>
