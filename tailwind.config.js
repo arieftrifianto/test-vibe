@@ -96,6 +96,7 @@ export default {
                 // Clay Shadows
                 'clay-card': 'inset -4px -4px 8px 0 rgba(0,0,0,0.02), inset 4px 4px 8px 0 rgba(255,255,255,0.8), 8px 8px 16px 0 rgba(0,0,0,0.06)',
                 'clay-btn': 'inset -2px -2px 4px 0 rgba(0,0,0,0.05), inset 2px 2px 4px 0 rgba(255,255,255,0.4), 4px 4px 8px 0 rgba(0,0,0,0.1)',
+                'clay-btn-strong': 'inset -2px -2px 4px 0 rgba(0,0,0,0.05), inset 2px 2px 4px 0 rgba(255,255,255,0.4), 4px 4px 8px 0 rgba(0,0,0,0.25)',
                 'clay-btn-active': 'inset 2px 2px 4px 0 rgba(0,0,0,0.05), inset -2px -2px 4px 0 rgba(255,255,255,0.4)',
                 'clay-input': 'inset 2px 2px 5px 0 rgba(0,0,0,0.05), inset -2px -2px 5px 0 rgba(255,255,255,0.8)',
             },

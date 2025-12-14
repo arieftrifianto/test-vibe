@@ -81,8 +81,8 @@ onUnmounted(() => document.removeEventListener('click', close));
           v-for="(option, index) in options"
           :key="index"
           @click="select(option)"
-          class="px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 cursor-pointer transition-colors"
-          :class="{ 'bg-primary-50 text-primary-700 font-medium': (option.value || option) === modelValue }"
+          class="px-4 py-2 text-sm text-neutral-700 hover:bg-secondary-50 cursor-pointer transition-colors"
+          :class="{ 'bg-secondary-100 text-secondary-900 font-medium': (option.value || option) === modelValue }"
         >
           {{ option.label || option }}
         </div>

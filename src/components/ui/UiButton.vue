@@ -19,7 +19,7 @@ const props = defineProps({
 const emit = defineEmits(['click']);
 
 const classes = computed(() => {
-  let base = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 outline-none enabled:focus:ring-2 enabled:focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed enabled:active:scale-95';
+  let base = 'relative inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 outline-none enabled:focus:ring-2 enabled:focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed enabled:active:scale-95';
   
   if (props.block) base += ' w-full';
 
@@ -31,8 +31,8 @@ const classes = computed(() => {
 
   const variants = {
     primary: 'bg-primary-500 text-white enabled:hover:bg-primary-600 shadow-clay-btn enabled:hover:shadow-clay-btn enabled:active:shadow-clay-btn-active enabled:focus:ring-primary-500/30',
-    secondary: 'bg-white text-neutral-700 border border-neutral-200 enabled:hover:bg-neutral-50 shadow-sm enabled:hover:shadow enabled:active:shadow-none enabled:focus:ring-neutral-500/30',
-    tertiary: 'bg-transparent text-neutral-600 enabled:hover:bg-neutral-100 enabled:hover:shadow-none shadow-none enabled:hover:text-neutral-900',
+    secondary: 'bg-white text-secondary-800 border border-secondary-200 enabled:hover:bg-secondary-50 shadow-sm enabled:hover:shadow enabled:active:shadow-none enabled:focus:ring-secondary-500/30',
+    tertiary: 'bg-transparent text-secondary-600 enabled:hover:bg-secondary-50 enabled:hover:shadow-none shadow-none enabled:hover:text-secondary-900',
     destructive: 'bg-error-500 text-white enabled:hover:bg-error-600 shadow-clay-btn enabled:hover:shadow-clay-btn enabled:active:shadow-clay-btn-active enabled:focus:ring-error-500/30',
     
     // Legacy mapping

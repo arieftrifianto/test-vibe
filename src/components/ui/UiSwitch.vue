@@ -11,7 +11,11 @@ defineEmits(['update:modelValue']);
 <template>
   <label class="inline-flex items-center gap-3 cursor-pointer select-none" :class="{ 'opacity-50 cursor-not-allowed': disabled }">
     <div class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out shadow-inner focus-within:ring-2 focus-within:ring-primary-500/20"
-         :class="modelValue ? 'bg-primary-500' : 'bg-neutral-200'">
+         :class="[
+           modelValue ? 'bg-primary-500' : 'bg-neutral-200',
+           !disabled && modelValue ? 'hover:bg-primary-600' : '',
+           !disabled && !modelValue ? 'hover:bg-neutral-300' : ''
+         ]">
       <input 
         type="checkbox" 
         class="sr-only"

@@ -1,4 +1,6 @@
 <script setup>
+import UiButton from './UiButton.vue';
+
 defineProps({
   isOpen: Boolean,
   title: String,
@@ -13,7 +15,7 @@ const emit = defineEmits(['close']);
     <Transition name="fade">
       <div 
         v-if="isOpen" 
-        class="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/40 backdrop-blur-sm p-4"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-secondary-900/40 backdrop-blur-sm p-4"
         @click.self="$emit('close')"
       >
         <Transition name="scale">
@@ -23,16 +25,17 @@ const emit = defineEmits(['close']);
             :class="width"
           >
             <!-- Header -->
-            <div class="flex justify-between items-center px-6 py-5 border-b border-neutral-100">
+            <div class="flex justify-between items-center px-6 py-5 border-b border-secondary-100">
               <h3 class="text-xl font-bold text-neutral-800">{{ title }}</h3>
-              <button 
+              <UiButton 
                 @click="$emit('close')" 
-                class="text-neutral-400 hover:text-neutral-600 rounded-full p-1 hover:bg-neutral-100 transition-colors outline-none focus:ring-2 focus:ring-neutral-200"
+                variant="tertiary"
+                class="!rounded-full !p-1 !w-8 !h-8 shrink-0 text-neutral-400 hover:text-neutral-600"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </button>
+              </UiButton>
             </div>
             
             <!-- Body -->
@@ -41,7 +44,7 @@ const emit = defineEmits(['close']);
             </div>
             
             <!-- Footer -->
-            <div v-if="$slots.footer" class="px-6 py-4 border-t border-neutral-100 bg-neutral-50/50 flex justify-end gap-3">
+            <div v-if="$slots.footer" class="px-6 py-4 border-t border-secondary-100 bg-neutral-50/50 flex justify-end gap-3">
               <slot name="footer" />
             </div>
           </div>
