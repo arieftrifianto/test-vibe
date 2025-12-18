@@ -141,6 +141,14 @@ export function useComponentsDocs() {
 
     const dataComponents = [
         {
+            name: 'UiAccordion',
+            description: 'A vertically collapsing accordion component for organizing content into expandable sections.',
+            props: [
+                { name: 'items', type: 'Array', default: '[]', description: 'List of objects with title and content properties' }
+            ],
+            usage: `<UiAccordion :items="[\n  { title: 'Section 1', content: 'Description 1' },\n  { title: 'Section 2', content: 'Description 2' }\n]" />`
+        },
+        {
             name: 'UiTable',
             description: 'A responsive table component with clay styling.',
             props: [

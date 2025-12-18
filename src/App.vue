@@ -27,49 +27,17 @@ import UiPagination from './components/ui/UiPagination.vue';
 // Composables
 import { useComponentsDocs } from './composables/useComponentsDocs';
 
+import DashboardView from './components/DashboardView.vue';
+
 const { components: docComponents } = useComponentsDocs();
-const componentMap = {
-  UiButton, UiCard, UiInput, UiBadge, UiTable, UiModal, UiAccordion, 
-  UiCheckbox, UiRadio, UiSwitch, UiSelect, UiTextarea, UiAvatar, UiAlert, UiProgress,
-  UiBreadcrumb, UiTabs, UiCalendar, UiDatePicker, UiPagination
-};
 
-const activeTab = ref('dashboard');
-const isModalOpen = ref(false);
+const currentPage = ref('dashboard');
 
-// Form Data
-const formData = ref({
-  name: '',
-  email: '',
-  role: 'developer',
-  bio: '',
-  notifications: true,
-  theme: 'light',
-  terms: false,
-  skills: ['vue'],
-});
-
-const roles = [
-  { label: 'Frontend Developer', value: 'developer' },
-  { label: 'UX Designer', value: 'designer' },
-  { label: 'Product Manager', value: 'manager' },
-];
-
-const radioOptions = ['light', 'dark', 'system'];
-
-// Data Display
-const users = [
-  { name: 'Alex Johnson', role: 'Designer', status: 'active', email: 'alex@example.com' },
-  { name: 'Maria Garcia', role: 'Developer', status: 'busy', email: 'maria@example.com' },
-  { name: 'James Smith', role: 'Manager', status: 'offline', email: 'james@example.com' },
-];
-
-const headers = ['User', 'Role', 'Status', 'Actions'];
-
+// Used in docs preview
 const accordionItems = [
   { title: 'Project Overview', content: 'Our new Calm Design System aims to reduce cognitive load through soft colors and minimal shadows.' },
-  { title: 'Project Overview', content: 'Our new Calm Design System aims to reduce cognitive load through soft colors and minimal shadows.' },
   { title: 'Team Structure', content: 'We are a cross-functional team working in two-week sprints.' },
+  { title: 'Future Roadmap', content: 'We plan to add more interactive components and dark mode support in the next quarter.' },
 ];
 
 const docsData = ref({
@@ -90,236 +58,51 @@ const docsModalOpen = ref(false);
 </script>
 
 <template>
-  <div class="min-h-screen bg-neutral-50 flex font-sans text-neutral-800">
+  <div class="min-h-screen bg-neutral-50 flex flex-col font-sans text-neutral-800">
     
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow-soft-xl fixed h-full flex flex-col z-10">
-      <div class="p-6 border-b border-neutral-100">
+    <!-- Top Toolbar -->
+    <header class="h-16 bg-white shadow-soft-xl sticky top-0 z-20 px-8 flex justify-between items-center border-b border-neutral-100">
+      <div class="flex items-center gap-12">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center text-white font-bold">C</div>
-          <h1 class="text-xl font-bold text-neutral-900">Calm UI</h1>
+          <h1 class="text-xl font-bold text-neutral-900 tracking-tight">Calm UI</h1>
         </div>
+        
+        <nav class="flex items-center gap-2">
+          <button 
+            @click="currentPage = 'dashboard'"
+            class="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300"
+            :class="currentPage === 'dashboard' ? 'bg-primary-50 text-primary-700' : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'"
+          >
+            Dashboard
+          </button>
+          <button 
+            @click="currentPage = 'docs'"
+            class="px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300"
+            :class="currentPage === 'docs' ? 'bg-primary-50 text-primary-700' : 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50'"
+          >
+            Documentation
+          </button>
+        </nav>
       </div>
-      
-      <nav class="flex-1 p-4 space-y-1">
-        <button 
-          v-for="tab in ['dashboard', 'forms', 'data', 'feedback', 'docs']" 
-          :key="tab"
-          @click="activeTab = tab"
-          class="w-full flex items-center px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
-          :class="activeTab === tab ? 'bg-primary-50 text-primary-700' : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'"
-        >
-          <span class="capitalize">{{ tab }}</span>
-        </button>
-      </nav>
 
-      <div class="p-4 border-t border-neutral-100">
-        <div class="flex items-center gap-3">
-          <UiAvatar initials="JD" size="sm" status="online" />
-          <div class="text-sm">
-            <p class="font-medium text-neutral-900">John Doe</p>
-            <p class="text-neutral-500 text-xs">Admin</p>
-          </div>
+      <div class="flex items-center gap-3 pr-4">
+        <div class="text-right text-xs mr-1 hidden sm:block">
+          <p class="font-bold text-neutral-900 leading-tight">John Doe</p>
+          <p class="text-neutral-500">Admin</p>
         </div>
+        <UiAvatar initials="JD" size="sm" status="online" />
       </div>
-    </aside>
+    </header>
 
     <!-- Main -->
-    <main class="ml-64 flex-1 p-8 max-w-7xl mx-auto space-y-8">
+    <main class="flex-1 p-8 max-w-7xl mx-auto w-full space-y-8">
       
-      <!-- Dashboard Overview -->
-      <section v-if="activeTab === 'dashboard'" class="space-y-6 animate-fade-in">
-        <header>
-          <h2 class="text-2xl font-bold text-neutral-900">Dashboard Overview</h2>
-          <p class="text-neutral-500">Welcome back, here's what's happening today.</p>
-        </header>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <UiCard>
-            <div class="flex justify-between items-start">
-              <div>
-                <p class="text-sm font-medium text-neutral-500">Total Revenue</p>
-                <h3 class="text-2xl font-bold text-neutral-900 mt-1">$45,231</h3>
-              </div>
-              <span class="bg-success-50 text-success-700 text-xs px-2 py-1 rounded-full font-medium">+20.1%</span>
-            </div>
-            <div class="mt-4">
-               <UiProgress :value="75" height="h-1.5" variant="primary" />
-            </div>
-          </UiCard>
-          
-          <UiCard>
-             <div class="flex justify-between items-start">
-              <div>
-                <p class="text-sm font-medium text-neutral-500">Active Users</p>
-                <h3 class="text-2xl font-bold text-neutral-900 mt-1">2,345</h3>
-              </div>
-              <span class="bg-neutral-100 text-neutral-600 text-xs px-2 py-1 rounded-full font-medium">0%</span>
-            </div>
-             <div class="mt-4">
-               <UiProgress :value="45" height="h-1.5" variant="secondary" />
-            </div>
-          </UiCard>
-
-          <UiCard>
-             <div class="flex justify-between items-start">
-              <div>
-                <p class="text-sm font-medium text-neutral-500">Bounce Rate</p>
-                <h3 class="text-2xl font-bold text-neutral-900 mt-1">42.3%</h3>
-              </div>
-              <span class="bg-error-50 text-error-700 text-xs px-2 py-1 rounded-full font-medium">-4.5%</span>
-            </div>
-             <div class="mt-4">
-               <UiProgress :value="20" height="h-1.5" variant="error" />
-            </div>
-          </UiCard>
-        </div>
-
-        <UiAlert variant="info" title="System Update" dismissible>
-          A new version of the system is available. Please refresh your page.
-        </UiAlert>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <UiCard title="Recent Activity" no-padding>
-             <div class="divide-y divide-neutral-100">
-               <div v-for="i in 3" :key="i" class="p-4 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
-                 <div class="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center text-primary-600">
-                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                 </div>
-                 <div class="flex-1">
-                   <p class="text-sm font-medium text-neutral-900">New notification received</p>
-                   <p class="text-xs text-neutral-500">2 minutes ago</p>
-                 </div>
-                 <UiButton size="sm" variant="ghost">View</UiButton>
-               </div>
-             </div>
-          </UiCard>
-
-          <UiCard title="Team Goals">
-            <UiAccordion :items="accordionItems" />
-          </UiCard>
-        </div>
-      </section>
-
-      <!-- Forms -->
-      <section v-if="activeTab === 'forms'" class="space-y-6 animate-fade-in">
-        <header>
-          <h2 class="text-2xl font-bold text-neutral-900">Form Elements</h2>
-          <p class="text-neutral-500">Comprehensive set of inputs and controls.</p>
-        </header>
-
-        <UiCard title="Account Settings">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <UiInput label="Full Name" v-model="formData.name" placeholder="John Doe" />
-            <UiInput label="Email Address" v-model="formData.email" placeholder="john@example.com" hint="We'll never share your email." />
-            
-            <UiSelect label="Role" :options="roles" v-model="formData.role" />
-            
-            <div class="space-y-3">
-              <label class="block text-sm font-medium text-neutral-700 ml-1">Theme Preference</label>
-              <div class="flex gap-4">
-                <UiRadio v-for="opt in radioOptions" :key="opt" :label="opt" :value="opt" :name="theme" v-model="formData.theme" class="capitalize" />
-              </div>
-            </div>
-
-            <UiTextarea label="Bio" v-model="formData.bio" placeholder="Tell us about yourself..." class="md:col-span-2" />
-
-            <div class="md:col-span-2 flex flex-col gap-4">
-              <UiSwitch label="Enable Email Notifications" v-model="formData.notifications" />
-              
-              <div class="p-4 bg-neutral-50 rounded-xl">
-                <h4 class="text-sm font-medium mb-3">Skills</h4>
-                <div class="flex gap-4">
-                  <UiCheckbox label="Vue.js" value="vue" v-model="formData.skills" />
-                  <UiCheckbox label="React" value="react" v-model="formData.skills" />
-                  <UiCheckbox label="Angular" value="angular" v-model="formData.skills" />
-                </div>
-              </div>
-              
-               <UiCheckbox label="I agree to the Terms of Service" v-model="formData.terms" />
-            </div>
-          </div>
-          
-          <template #footer>
-            <UiButton variant="secondary" class="mr-3">Cancel</UiButton>
-            <UiButton>Save Changes</UiButton>
-          </template>
-        </UiCard>
-
-        <div class="flex flex-wrap gap-2">
-          <UiButton>Primary</UiButton>
-          <UiButton variant="secondary">Secondary</UiButton>
-          <UiButton variant="tertiary">Tertiary</UiButton>
-          <UiButton variant="destructive">Destructive</UiButton>
-          <UiButton variant="success">Success</UiButton>
-          <UiButton variant="warning">Warning</UiButton>
-          <UiButton disabled>Disabled</UiButton>
-        </div>
-      </section>
-
-      <!-- Data Display -->
-      <section v-if="activeTab === 'data'" class="space-y-6 animate-fade-in">
-        <header>
-          <h2 class="text-2xl font-bold text-neutral-900">Data Display</h2>
-        </header>
-
-         <UiCard title="Team Members" no-padding>
-           <table class="w-full text-sm text-left">
-              <thead class="bg-neutral-50 text-neutral-500 uppercase font-semibold text-xs border-b border-neutral-200">
-                <tr>
-                  <th class="px-6 py-4">User</th>
-                  <th class="px-6 py-4">Role</th>
-                  <th class="px-6 py-4">Status</th>
-                  <th class="px-6 py-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-100">
-                <tr v-for="user in users" :key="user.email" class="hover:bg-neutral-50/50">
-                  <td class="px-6 py-4 flex items-center gap-3">
-                    <UiAvatar :initials="user.name.charAt(0)" :status="user.status === 'active' ? 'online' : (user.status === 'busy' ? 'busy' : 'offline')" />
-                    <div>
-                      <p class="font-medium text-neutral-900">{{ user.name }}</p>
-                      <p class="text-neutral-500 text-xs">{{ user.email }}</p>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 text-neutral-600">{{ user.role }}</td>
-                  <td class="px-6 py-4">
-                    <UiBadge :variant="user.status === 'active' ? 'success' : (user.status === 'busy' ? 'warning' : 'neutral')">
-                      {{ user.status }}
-                    </UiBadge>
-                  </td>
-                  <td class="px-6 py-4">
-                    <UiButton size="sm" variant="ghost">Edit</UiButton>
-                  </td>
-                </tr>
-              </tbody>
-           </table>
-         </UiCard>
-      </section>
-
-      <!-- Feedback -->
-      <section v-if="activeTab === 'feedback'" class="space-y-6 animate-fade-in">
-         <header>
-          <h2 class="text-2xl font-bold text-neutral-900">Feedback & Overlays</h2>
-        </header>
-
-        <div class="space-y-4">
-          <UiAlert variant="info" title="Info">This is an informational alert.</UiAlert>
-          <UiAlert variant="success" title="Success">Operation completed successfully.</UiAlert>
-          <UiAlert variant="warning" title="Warning">Your account is pending verification.</UiAlert>
-          <UiAlert variant="error" title="Error">Something went wrong.</UiAlert>
-        </div>
-
-        <UiCard>
-          <div class="text-center py-8">
-            <h3 class="text-lg font-medium mb-4">Modal Dialog</h3>
-            <UiButton @click="isModalOpen = true">Open Modal</UiButton>
-          </div>
-        </UiCard>
-      </section>
+      <!-- Dashboard -->
+      <DashboardView v-if="currentPage === 'dashboard'" />
 
       <!-- Documentation -->
-      <section v-if="activeTab === 'docs'" class="space-y-8 animate-fade-in">
+      <section v-else-if="currentPage === 'docs'" class="space-y-8 animate-fade-in">
         <header>
           <h2 class="text-2xl font-bold text-neutral-900">Component Documentation</h2>
           <p class="text-neutral-500">Detailed usage guide for all system components.</p>
@@ -466,6 +249,9 @@ const docsModalOpen = ref(false);
                        </div>
                    </div>
                 </template>
+                <template v-else-if="comp.name === 'UiAccordion'">
+                   <UiAccordion :items="accordionItems" class="max-w-md w-full" />
+                </template>
                 <template v-else-if="comp.name === 'UiBreadcrumb'">
                    <UiBreadcrumb :items="[{label:'Home', href:'#'}, {label:'Products', href:'#'}, {label:'Details'}]" />
                 </template>
@@ -536,20 +322,6 @@ const docsModalOpen = ref(false);
       </section>
       
     </main>
-
-    <!-- Modal Portal -->
-    <UiModal :isOpen="isModalOpen" title="Confirmation" @close="isModalOpen = false">
-      <p class="text-neutral-600 mb-4">
-        Are you sure you want to proceed with this action? This illustration demonstrates the modal component overlaying the content.
-      </p>
-      <div class="p-4 bg-warning-50 rounded-lg border border-warning-100 text-warning-800 text-sm mb-4">
-        <strong>Note:</strong> This action cannot be undone.
-      </div>
-      <template #footer>
-        <UiButton variant="secondary" @click="isModalOpen = false">Cancel</UiButton>
-        <UiButton variant="primary" @click="isModalOpen = false">Confirm</UiButton>
-      </template>
-    </UiModal>
 
   </div>
 </template>

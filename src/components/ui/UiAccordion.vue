@@ -16,7 +16,7 @@ const toggle = (index) => {
 </script>
 
 <template>
-  <div class="w-full border border-neutral-200 rounded-xl bg-white overflow-hidden divide-y divide-neutral-100 shadow-soft-sm">
+  <div class="w-full bg-white rounded-2xl shadow-clay-card overflow-hidden divide-y divide-neutral-100">
     <div 
       v-for="(item, index) in items" 
       :key="index"
@@ -24,7 +24,8 @@ const toggle = (index) => {
     >
       <button 
         @click="toggle(index)"
-        class="w-full flex justify-between items-center p-5 text-left font-medium text-neutral-800 hover:bg-neutral-50 transition-colors focus:outline-none focus:bg-neutral-50"
+        class="w-full flex justify-between items-center p-5 text-left font-bold text-neutral-800 hover:bg-neutral-50 transition-colors focus:outline-none focus:bg-neutral-50"
+        :class="{ 'bg-neutral-50/50': activeIndex === index }"
       >
         <span>{{ item.title }}</span>
         <span 
@@ -39,10 +40,9 @@ const toggle = (index) => {
       
       <div 
         v-show="activeIndex === index"
-        class="px-5 pb-5 pt-0 text-neutral-600 leading-relaxed border-t border-transparent"
-        :class="{ '!border-neutral-100 pt-2': activeIndex === index }"
+        class="px-5 pb-5 pt-0 text-neutral-600 leading-relaxed"
       >
-        <div class="animate-fade-in-down">
+        <div class="pt-2 border-t border-neutral-100 animate-fade-in-down">
           {{ item.content }}
         </div>
       </div>
