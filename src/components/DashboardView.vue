@@ -49,12 +49,18 @@ const recentSessions = [
   { title: 'Project Research', duration: '45m', category: 'UX', type: 'Deep Work' },
   { title: 'Styleguide Update', duration: '1h 20m', category: 'Design', type: 'Flow' },
   { title: 'API Debugging', duration: '30m', category: 'Dev', type: 'Fix' },
+  { title: 'Asset Export', duration: '15m', category: 'Design', type: 'Flow' },
 ];
 
 const recentAssets = [
   { name: 'Hero_Illustration.png', size: '2.4mb', time: '12m ago', type: 'image' },
   { name: 'Dashboard_Flow.fig', size: '1.2mb', time: '1h ago', type: 'file' },
   { name: 'Icon_Set_V2.svg', size: '42kb', time: '3h ago', type: 'svg' },
+];
+
+const recentNotes = [
+  { id: 1, text: 'Consider a 6-column grid for better bento scaling.', time: '2h ago' },
+  { id: 2, text: 'The clay shadow effect needs subtle adjustments on hover.', time: '5h ago' },
 ];
 </script>
 
@@ -107,7 +113,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Mindful Schedule (2x1) -->
-      <UiCard class="md:col-span-2" title="Mindful Schedule" subtitle="Your focus window">
+      <UiCard class="md:col-span-2 md:row-span-2" title="Mindful Schedule" subtitle="Your focus window">
          <div class="py-2 space-y-4">
             <UiCalendar v-model="selectedDate" class="!shadow-none !p-0 w-full" />
             <div class="px-3 py-2 rounded-xl bg-neutral-50/50 border border-neutral-100 flex flex-col gap-2">
@@ -133,18 +139,39 @@ const recentAssets = [
          </template>
       </UiCard>
 
+      <div class="md:col-span-4">
+         <div class="p-6 rounded-2xl bg-warning-50 border border-warning-100 shadow-clay-card flex flex-col justify-between h-full">
+            <div>
+               <div class="flex items-center gap-2 text-warning-700 font-bold text-xs uppercase tracking-widest">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Mindful Alert
+               </div>
+               <p class="text-[11px] text-warning-800 mt-3 font-medium leading-relaxed italic">"Mobile App Redesign" due in <span class="font-bold underline">2 days</span>.</p>
+            </div>
+            <UiButton variant="secondary" size="sm" class="mt-4 self-start bg-white/50 border-warning-200 !text-warning-800 scale-90 origin-left">Review Checklist</UiButton>
+         </div>
+      </div>
+
       <!-- Recent Activity Log (2x1) -->
       <UiCard class="md:col-span-3" title="Activity Log" subtitle="Recent focus blocks">
         <div class="space-y-3 py-1">
-           <div v-for="(session, idx) in recentSessions.slice(0, 3)" :key="idx" class="flex items-center justify-between p-3 rounded-xl bg-neutral-50/50 border border-neutral-100/30 group hover:shadow-soft-sm transition-all duration-300">
+           <div v-for="(session, idx) in recentSessions.slice(0, 4)" :key="idx" class="flex items-center justify-between p-3 rounded-xl bg-neutral-50/50 border border-neutral-100/30 group hover:shadow-soft-sm transition-all duration-300">
               <div class="flex items-center gap-3">
-                 <div class="w-8 h-8 rounded-lg bg-white border border-neutral-100 flex items-center justify-center text-primary-600 font-bold text-[10px]">{{ session.duration }}</div>
+                 <div class="w-14 h-8 rounded-lg bg-white border border-neutral-100 flex items-center justify-center text-primary-600 font-bold text-[10px]">{{ session.duration }}</div>
                  <div class="flex flex-col">
                     <span class="text-xs font-bold text-neutral-800">{{ session.title }}</span>
                     <span class="text-[9px] text-neutral-400 font-bold uppercase tracking-widest">{{ session.category }}</span>
                  </div>
               </div>
               <UiBadge variant="neutral" size="sm" class="text-[9px]">{{ session.type }}</UiBadge>
+           </div>
+        </div>
+
+        <!-- Weekly Brief (Filling space and balancing with Mindful Notes) -->
+        <div class="mt-6 pt-5 border-t border-neutral-100">
+           <div class="flex items-center justify-between mb-4">
+              <h5 class="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Weekly Brief</h5>
+              <UiButton variant="ghost" size="sm" class="!px-0 !py-0 h-auto text-primary-600 text-[9px] font-bold">View History</UiButton>
            </div>
         </div>
       </UiCard>
@@ -160,7 +187,18 @@ const recentAssets = [
            />
            <div class="flex justify-between items-center mt-3">
               <span class="text-[10px] font-bold text-neutral-400">Autosaved just now</span>
-              <UiButton variant="secondary" size="sm" class="scale-90 origin-right">Save Note</UiButton>
+               <UiButton variant="secondary" size="sm" class="scale-90 origin-right">Save Note</UiButton>
+           </div>
+
+           <!-- Recent Insights (Filling space) -->
+           <div class="mt-6 pt-5 border-t border-neutral-100">
+              <h5 class="text-[9px] font-black text-neutral-400 uppercase tracking-widest mb-3">Recent Insights</h5>
+              <div class="space-y-3">
+                 <div v-for="note in recentNotes" :key="note.id" class="flex flex-col gap-1 p-2.5 rounded-xl bg-neutral-50/30 border border-neutral-100/30">
+                    <p class="text-[11px] text-neutral-600 line-clamp-1 italic font-medium">"{{ note.text }}"</p>
+                    <span class="text-[9px] font-bold text-neutral-400 self-end">{{ note.time }}</span>
+                 </div>
+              </div>
            </div>
         </div>
       </UiCard>
@@ -171,9 +209,9 @@ const recentAssets = [
            <UiChart 
              type="donut" 
              :data="[{ value: 75 }, { value: 25 }]" 
-             height="96px"
+             height="140px"
            />
-           <p class="text-[9px] font-black text-neutral-400 uppercase tracking-widest mt-3">Sprint Target</p>
+           <p class="text-xs font-black text-neutral-400 uppercase tracking-widest mt-6">Sprint Target</p>
         </div>
       </UiCard>
 
@@ -245,34 +283,6 @@ const recentAssets = [
           </div>
         </div>
       </UiCard>
-
-      <!-- Health & Alert (Bottom Row Pairs) -->
-      <UiCard class="md:col-span-3" title="System Health" subtitle="Core status">
-        <div class="grid grid-cols-2 gap-3 py-1">
-          <div v-for="(v, k) in { 'Uptime': '99.9%', 'Sync': 'Active' }" :key="k" class="p-3 rounded-xl bg-neutral-50/50 border border-neutral-100/50 flex flex-col gap-1">
-            <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest">{{ k }}</span>
-            <span class="text-xs font-bold text-neutral-800">{{ v }}</span>
-          </div>
-        </div>
-        <template #footer>
-           <div class="flex items-center gap-2 text-[9px] font-bold text-neutral-400">
-             <div class="w-1.5 h-1.5 rounded-full bg-success-500"></div> All systems stable
-           </div>
-        </template>
-      </UiCard>
-
-      <div class="md:col-span-3">
-         <div class="p-6 rounded-2xl bg-warning-50 border border-warning-100 shadow-clay-card flex flex-col justify-between h-full">
-            <div>
-               <div class="flex items-center gap-2 text-warning-700 font-bold text-xs uppercase tracking-widest">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  Mindful Alert
-               </div>
-               <p class="text-[11px] text-warning-800 mt-3 font-medium leading-relaxed italic">"Mobile App Redesign" due in <span class="font-bold underline">2 days</span>.</p>
-            </div>
-            <UiButton variant="secondary" size="sm" class="mt-4 self-start bg-white/50 border-warning-200 !text-warning-800 scale-90 origin-left">Review Checklist</UiButton>
-         </div>
-      </div>
 
       <!-- Global Inventory (4x1) -->
       <UiCard class="md:col-span-6" title="Project Inventory" subtitle="Comprehensive status overview" no-padding>
