@@ -11,6 +11,7 @@ import UiCheckbox from './ui/UiCheckbox.vue';
 import UiCalendar from './ui/UiCalendar.vue';
 import UiInput from './ui/UiInput.vue';
 import UiTextarea from './ui/UiTextarea.vue';
+import UiChart from './ui/UiChart.vue';
 
 // Assets
 import heroBg from '../assets/hero_bg.png';
@@ -19,7 +20,6 @@ import project2Img from '../assets/project_2.png';
 import taskThumb from '../assets/task_thumb.png';
 
 const chartData = [40, 70, 55, 90, 65, 80, 75];
-const polylinePoints = chartData.map((h, i) => `${(i * 100) / 6},${100 - h}`).join(' ');
 
 const selectedDate = ref(new Date());
 const searchQuery = ref('');
@@ -95,19 +95,8 @@ const recentAssets = [
 
       <!-- Productivity Flow (2x1) -->
       <UiCard class="md:col-span-2" title="Productivity Flow" subtitle="Minutes per day">
-        <div class="relative h-48 mt-4 px-2 overflow-hidden">
-          <div class="absolute inset-0 flex flex-col justify-between py-1 opacity-10 pointer-events-none">
-            <div v-for="i in 5" :key="i" class="border-t border-neutral-900 w-full"></div>
-          </div>
-          <svg class="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-            <polyline fill="none" stroke="rgba(58, 124, 165, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" :points="polylinePoints" />
-          </svg>
-          <div class="relative h-full flex items-end justify-between gap-2">
-            <div v-for="(h, i) in chartData" :key="i" class="flex-1 flex flex-col items-center">
-               <div class="w-full bg-primary-500 rounded-t-xl relative transition-all duration-500 shadow-sm" :style="{ height: h + '%' }"></div>
-               <span class="text-[9px] font-bold text-neutral-400 mt-2 tracking-tighter">{{ ['M', 'T', 'W', 'T', 'F', 'S', 'S'][i] }}</span>
-            </div>
-          </div>
+        <div class="mt-4">
+          <UiChart :data="chartData" height="192px" />
         </div>
         <template #footer>
           <div class="flex justify-between items-center text-[11px] font-bold">
@@ -179,16 +168,12 @@ const recentAssets = [
       <!-- Mini Widgets (1x1 each) -->
       <UiCard title="Goal Progress">
         <div class="flex flex-col items-center justify-center py-4">
-           <div class="relative w-24 h-24 mb-3">
-              <svg class="w-full h-full transform -rotate-90">
-                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="10" fill="transparent" class="text-neutral-100" />
-                <circle cx="48" cy="48" r="40" stroke="currentColor" stroke-width="10" fill="transparent" class="text-primary-500 transition-all duration-1000" stroke-dasharray="251.2" :stroke-dashoffset="251.2 * (1 - 0.75)" stroke-linecap="round" />
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span class="font-black text-xl text-neutral-800 tracking-tighter">75%</span>
-              </div>
-           </div>
-           <p class="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Sprint Target</p>
+           <UiChart 
+             type="donut" 
+             :data="[{ value: 75 }, { value: 25 }]" 
+             height="96px"
+           />
+           <p class="text-[9px] font-black text-neutral-400 uppercase tracking-widest mt-3">Sprint Target</p>
         </div>
       </UiCard>
 
