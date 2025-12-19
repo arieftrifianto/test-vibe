@@ -36,7 +36,7 @@ const currentPage = ref('dashboard');
 
 // Used in docs preview
 const accordionItems = [
-  { title: 'Project Overview', content: 'Our new Calm Design System aims to reduce cognitive load through soft colors and minimal shadows.' },
+  { title: 'Project Overview', content: 'Our new Aura Design System aims to reduce cognitive load through soft colors and minimal shadows.' },
   { title: 'Team Structure', content: 'We are a cross-functional team working in two-week sprints.' },
   { title: 'Future Roadmap', content: 'We plan to add more interactive components and dark mode support in the next quarter.' },
 ];
@@ -64,9 +64,14 @@ const docsModalOpen = ref(false);
     <!-- Top Toolbar -->
     <header class="h-16 bg-white shadow-soft-xl sticky top-0 z-20 px-8 flex justify-between items-center border-b border-neutral-100">
       <div class="flex items-center gap-12">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center text-white font-bold">C</div>
-          <h1 class="text-xl font-bold text-neutral-900 tracking-tight">Calm UI</h1>
+        <div class="flex items-center gap-3 group cursor-pointer">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-clay-sm transform group-hover:scale-105 transition-transform duration-500">
+            <svg class="w-6 h-6 text-white drop-shadow-sm" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <path d="M12 4L4 20H6.5L8.5 15H15.5L17.5 20H20L12 4ZM12 7.33L14.67 13H9.33L12 7.33Z" fill="white"/>
+               <circle cx="12" cy="12" r="11" stroke="white" stroke-opacity="0.2" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <h1 class="text-xl font-black text-neutral-900 tracking-tighter uppercase">Aura</h1>
         </div>
         
         <nav class="flex items-center gap-2">

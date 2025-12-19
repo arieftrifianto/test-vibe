@@ -33,7 +33,7 @@ const upcomingTasks = ref([
 ]);
 
 const projects = [
-  { name: 'Calm Design System', progress: 85, status: 'Active', members: 4 },
+  { name: 'Aura UI Kit', progress: 85, status: 'Active', members: 4 },
   { name: 'Mobile App Redesign', progress: 42, status: 'In Progress', members: 2 },
   { name: 'Landing Page v2', progress: 15, status: 'Planning', members: 1 },
 ];
