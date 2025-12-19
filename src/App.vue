@@ -23,6 +23,7 @@ import UiTabs from './components/ui/UiTabs.vue';
 import UiCalendar from './components/ui/UiCalendar.vue';
 import UiDatePicker from './components/ui/UiDatePicker.vue';
 import UiPagination from './components/ui/UiPagination.vue';
+import UiChart from './components/ui/UiChart.vue';
 
 // Composables
 import { useComponentsDocs } from './composables/useComponentsDocs';
@@ -308,6 +309,18 @@ const docsModalOpen = ref(false);
                        <UiButton @click="docsModalOpen = false">Confirm</UiButton>
                      </template>
                    </UiModal>
+                </template>
+                <template v-else-if="comp.name === 'UiChart'">
+                   <div class="flex flex-col gap-8 w-full">
+                       <div class="space-y-2">
+                           <p class="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Type: line-bar</p>
+                           <UiChart :data="[40, 70, 55, 90, 65, 80, 75]" height="160px" />
+                       </div>
+                       <div class="space-y-2 max-w-xs mx-auto text-center">
+                           <p class="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Type: donut</p>
+                           <UiChart type="donut" :data="[{ value: 75 }, { value: 25 }]" height="120px" />
+                       </div>
+                   </div>
                 </template>
                 <div v-else class="text-neutral-400 italic">No preview available</div>
               </div>

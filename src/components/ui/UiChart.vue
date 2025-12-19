@@ -9,7 +9,7 @@ const props = defineProps({
   },
   type: {
     type: String,
-    default: 'line-bar' // 'line-bar', 'donut'
+    default: 'bar' // 'line-bar', 'donut'
   },
   height: {
     type: [Number, String],
@@ -62,7 +62,7 @@ const template = (d) => `
 
 <template>
   <div class="ui-chart-container" :style="{ height: containerHeight }">
-    <template v-if="type === 'line-bar'">
+    <template v-if="type === 'bar'">
       <VisXYContainer :data="chartData" :padding="{ top: 10, bottom: 20, left: 10, right: 10 }" :height="height">
         <VisTooltip />
         <VisStackedBar 
@@ -72,13 +72,13 @@ const template = (d) => `
           :roundedCorners="6"
           :barPadding="0.25"
         />
-        <VisLine 
+        <!-- <VisLine 
           :x="x" 
           :y="y" 
           :strokeWidth="2" 
           :color="primaryColor" 
           :opacity="0.3"
-        />
+        /> -->
         <VisAxis 
           type="x" 
           :tickFormat="i => chartData[i]?.label" 

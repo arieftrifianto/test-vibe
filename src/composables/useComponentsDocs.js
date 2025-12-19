@@ -198,6 +198,18 @@ export function useComponentsDocs() {
                 { name: 'title', type: 'String', default: 'undefined', description: 'Modal title' }
             ],
             usage: `<UiModal :isOpen="show" title="Title" @close="show = false">\n  <p>Content</p>\n</UiModal>`
+        },
+        {
+            name: 'UiChart',
+            description: 'A versatile chart component for visualizing data using Unovis, supports line-bar and donut types.',
+            props: [
+                { name: 'data', type: 'Array', default: 'required', description: 'Data points for the chart. Array of numbers for line-bar, array of {value} for donut.' },
+                { name: 'type', type: 'String', default: 'line-bar', description: 'Chart type: line-bar, donut' },
+                { name: 'height', type: 'Number | String', default: '180', description: 'Height of the chart (e.g., 180, "200px")' },
+                { name: 'labels', type: 'Array', default: '["M", "T", ...]', description: 'Labels for the X-axis (line-bar type)' },
+                { name: 'primaryColor', type: 'String', default: '#3A7CA5', description: 'Primary color for the chart elements' }
+            ],
+            usage: `<UiChart :data="[40, 70, 55, 90, 65, 80, 75]" height="180px" />\n\n<!-- Donut type -->\n<UiChart type="donut" :data="[{ value: 75 }, { value: 25 }]" height="140px" />`
         }
     ];
 
