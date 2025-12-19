@@ -73,10 +73,10 @@ const recentAssets = [
     </div>
 
     <!-- Layout: Dense Interlocking Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-min grid-flow-dense">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-min grid-flow-dense">
       
       <!-- Command Center (4 cols) -->
-      <UiCard class="md:col-span-4" no-padding>
+      <UiCard class="md:col-span-6" no-padding>
         <div class="flex flex-col md:flex-row items-center gap-6 p-6">
           <div class="flex-1 w-full">
             <UiInput 
@@ -94,7 +94,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Productivity Flow (2x1) -->
-      <UiCard class="md:col-span-2" title="Productivity Flow" subtitle="Minutes per day">
+      <UiCard class="md:col-span-4" title="Productivity Flow" subtitle="Minutes per day">
         <div class="mt-4">
           <UiChart :data="chartData" height="192px" />
         </div>
@@ -134,7 +134,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Recent Activity Log (2x1) -->
-      <UiCard class="md:col-span-2" title="Activity Log" subtitle="Recent focus blocks">
+      <UiCard class="md:col-span-3" title="Activity Log" subtitle="Recent focus blocks">
         <div class="space-y-3 py-1">
            <div v-for="(session, idx) in recentSessions.slice(0, 3)" :key="idx" class="flex items-center justify-between p-3 rounded-xl bg-neutral-50/50 border border-neutral-100/30 group hover:shadow-soft-sm transition-all duration-300">
               <div class="flex items-center gap-3">
@@ -150,7 +150,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Mindful Note / Quick Capture (2x1) -->
-      <UiCard class="md:col-span-2" title="Mindful Notes" subtitle="Capture a thought">
+      <UiCard class="md:col-span-3" title="Mindful Notes" subtitle="Capture a thought">
         <div class="py-1">
            <UiTextarea 
              v-model="quickNote" 
@@ -166,7 +166,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Mini Widgets (1x1 each) -->
-      <UiCard title="Goal Progress">
+      <UiCard class="md:col-span-2" title="Goal Progress">
         <div class="flex flex-col items-center justify-center py-4">
            <UiChart 
              type="donut" 
@@ -177,7 +177,7 @@ const recentAssets = [
         </div>
       </UiCard>
 
-      <UiCard title="Active Team">
+      <UiCard class="md:col-span-2" title="Active Team">
         <div class="space-y-3 py-1">
            <div v-for="u in team.slice(0, 3)" :key="u.initials" class="flex justify-between items-center group p-1">
               <div class="flex items-center gap-3">
@@ -214,7 +214,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Quick Task Insight (2x1) -->
-      <UiCard class="md:col-span-2 overflow-hidden" title="Mindful Tasks">
+      <UiCard class="md:col-span-3" title="Mindful Tasks">
         <div class="flex gap-4 h-full items-center py-1">
           <div class="flex-1 space-y-3">
              <div v-for="task in upcomingTasks.slice(0, 3)" :key="task.id" class="flex items-center gap-3">
@@ -232,7 +232,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Project Insight (2x1) -->
-      <UiCard class="md:col-span-2 overflow-hidden p-0" no-padding>
+      <UiCard class="md:col-span-3 overflow-hidden p-0" no-padding>
         <div class="flex h-full min-h-[160px] items-stretch group">
           <div class="p-6 flex-1 flex flex-col justify-center bg-white z-10">
             <h4 class="text-lg font-black text-neutral-900 tracking-tight leading-tight">Creative Output</h4>
@@ -247,7 +247,7 @@ const recentAssets = [
       </UiCard>
 
       <!-- Health & Alert (Bottom Row Pairs) -->
-      <UiCard class="md:col-span-2" title="System Health" subtitle="Core status">
+      <UiCard class="md:col-span-3" title="System Health" subtitle="Core status">
         <div class="grid grid-cols-2 gap-3 py-1">
           <div v-for="(v, k) in { 'Uptime': '99.9%', 'Sync': 'Active' }" :key="k" class="p-3 rounded-xl bg-neutral-50/50 border border-neutral-100/50 flex flex-col gap-1">
             <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest">{{ k }}</span>
@@ -261,7 +261,7 @@ const recentAssets = [
         </template>
       </UiCard>
 
-      <div class="md:col-span-2">
+      <div class="md:col-span-3">
          <div class="p-6 rounded-2xl bg-warning-50 border border-warning-100 shadow-clay-card flex flex-col justify-between h-full">
             <div>
                <div class="flex items-center gap-2 text-warning-700 font-bold text-xs uppercase tracking-widest">
@@ -275,7 +275,7 @@ const recentAssets = [
       </div>
 
       <!-- Global Inventory (4x1) -->
-      <UiCard class="md:col-span-4" title="Project Inventory" subtitle="Comprehensive status overview" no-padding>
+      <UiCard class="md:col-span-6" title="Project Inventory" subtitle="Comprehensive status overview" no-padding>
          <div class="overflow-x-auto">
             <table class="w-full text-[11px] text-left">
               <thead class="bg-neutral-50/50 text-neutral-500 font-bold uppercase border-b border-neutral-100">
